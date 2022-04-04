@@ -1,0 +1,117 @@
+<div class="portfolio_displayarea">
+  <p class="portfolio_header font_Heebo font_bold font_midum">My Portfolio</p>
+  <p class="Money_in_wallet font_Heebo font_400 font_semi_midum">Money in Wallet: ${{account.saving.toFixed(2)}}</p>
+  <p class="alert_msg_p" *ngFor="let alert of alerts">
+    <ngb-alert class="alert_msg" [type]="alert.type" (closed)="close(alert)">{{ alert.message }}</ngb-alert>
+  </p>
+  <div class="following_list" >
+    <div class="alert alert-warning no-following-warning" role="alert" *ngIf="own_stock.length==0">
+      Currently you don't have any stock in your watchlist.
+    </div>
+    <div class="portfolio_following_item" *ngFor="let ticker of own_stock">
+      <div class="following_item_top" (click)="turnToDetail(ticker)">
+        <span class="stock_symbol font_Heebo font_600 font_semi_midum">{{ticker}} </span>
+        <span style="color: #6E6E6E;" class="company_name font_Heebo font_500 font_small">{{tb3[ticker].name}}</span>
+      </div>
+      <div class="following_item_mid">
+        <div class="following_item_mid_left">
+          <p class="following_item_property_p">
+            <span class="item_property">Quantity:</span>
+            <span class="item_property_val">{{account.own_stock[ticker].quantity}}</span>
+          </p>
+          <p class="following_item_property_p">
+            <span class="item_property">Avg. Cost / Share</span>
+            <span class="item_property_val">{{(account.own_stock[ticker].avg_cost).toFixed(2)}}</span>
+          </p>
+          <p class="following_item_property_p">
+            <span class="item_property">Total Cost:</span>
+            <span class="item_property_val">{{(account.own_stock[ticker].total_cost).toFixed(2)}}</span>
+          </p>
+        </div>
+        <div class="following_item_mid_right">
+          <p class="following_item_property_p">
+            <span class="item_property">Change:</span>
+            <span class="item_property_val">
+              <span>
+                <svg *ngIf="tb3[ticker].c != account.own_stock[ticker].avg_cost" [ngStyle]="arrow_color(tb3[ticker].c - account.own_stock[ticker].avg_cost)"  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+                  <path [attr.d]="arrow_svgpath(tb3[ticker].c - account.own_stock[ticker].avg_cost)" />
+                </svg>
+              </span>
+              <span [ngStyle]="arrow_color(tb3[ticker].c - account.own_stock[ticker].avg_cost)">{{(tb3[ticker].c - account.own_stock[ticker].avg_cost).toFixed(2)}}</span>
+            </span>
+          </p>
+          <p class="following_item_property_p">
+            <span class="item_property">Current Price:</span>
+            <span class="item_property_val" [ngStyle]="arrow_color(tb3[ticker].c - account.own_stock[ticker].avg_cost)">{{(tb3[ticker].c).toFixed(2)}}</span>
+          </p>
+          <p class="following_item_property_p">
+            <span class="item_property">Market Value:</span>
+            <span class="item_property_val" [ngStyle]="arrow_color(tb3[ticker].c - account.own_stock[ticker].avg_cost)">{{(tb3[ticker].c*account.own_stock[ticker].quantity).toFixed(2)}}</span>
+          </p>
+        </div>
+      </div>
+      <div class="following_item_bot">
+        <button  class="btn btn-primary btn_bs" id="btn_b" (click)="this.tickerInC=ticker;open(content_buy)">Buy</button>
+        <button  class="btn btn-danger btn_bs" id="btn_s" (click)="this.tickerInC=ticker;open(content_sell)">Sell</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #content_buy let-modal_buy >
+  <div class="modal-header">
+    <h4 class="modal-title modal-basic-title" >{{tickerInC}}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal_buy.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <p class="modal_item font_600 font_Heebo">Current Price: {{tb3[tickerInC].c}}</p>
+    <p class="modal_item font_600 font_Heebo">Money in Wallet: ${{(account.saving).toFixed(2)}}</p>
+    <form>
+      <div class="mb-3">
+        <div class="input-group">
+          <span class="quantity_text font_600 font_Heebo" >Quantity </span>
+          <input min='1' style="width:80px;" step="1" type="number" class="modal_input form-control" id="buy_numberInputEx" mdbInput  (input)="get_buy_error_hint($event,tickerInC)"
+                 (keyup)="buy_check_enter($event,tickerInC)">
+          <!--          <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">-->
+          <!--          <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>-->
+        </div>
+      </div>
+    </form>
+    <p class="error_message font_600 font_Heebo" *ngIf="buy_error_hint">{{buy_error_msg}}</p>
+  </div>
+  <div class="modal-footer">
+    <span class="modal_total font_600 font_Heebo">Total: {{buy_total_price}}</span>
+    <button disabled="true" type="button" id="buy_stock" class="btn btn-outline-dark btn_success" (click)="buy_func($event,tickerInC);">Buy</button>
+  </div>
+</ng-template>
+
+
+
+<ng-template #content_sell let-modal_sell >
+  <div class="modal-header">
+    <h4 class="modal-title modal-basic-title" >{{tickerInC}}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal_sell.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <p class="modal_item font_600 font_Heebo">Current Price: {{tb3[tickerInC].c}}</p>
+    <p class="modal_item font_600 font_Heebo">Money in Wallet: ${{(account.saving).toFixed(2)}}</p>
+    <form>
+      <div class="mb-3">
+        <div class="input-group">
+          <span class="quantity_text font_600 font_Heebo" >Quantity </span>
+          <input min='1' step="1" style="width:80px;" type="number" class="modal_input form-control" id="sell_numberInputEx" mdbInput  (input)="get_sell_error_hint($event,tickerInC)"
+                 (keyup)="sell_check_enter($event,tickerInC)">
+          <!--          <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">-->
+          <!--          <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>-->
+        </div>
+      </div>
+    </form>
+    <p class="error_message font_600 font_Heebo" *ngIf="sell_error_hint">{{sell_error_msg}}</p>
+  </div>
+  <div class="modal-footer">
+    <span class="modal_total font_600 font_Heebo">Total: {{sell_total_price}}</span>
+    <button disabled="true" type="button" id="sell_stock" class="btn_danger btn btn-outline-dark " (click)="sell_func($event,tickerInC);modal_sell.close('Save click');">Sell</button>
+  </div>
+</ng-template>
+

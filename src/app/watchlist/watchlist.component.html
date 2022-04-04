@@ -1,0 +1,41 @@
+<div class="watchlist_displayarea">
+  <p class="watchlist_header font_Heebo font_bold font_midum">My Watchlist</p>
+  <div class="following_list" >
+
+    <div class="alert alert-warning no-following-warning" role="alert" *ngIf="empty_list">
+      Currently you don't have any stock in your watchlist.
+    </div>
+    <div *ngFor="let following_item of following" class="following_list_item" (click)="turnToDetail(following_item)">
+      <div class="item-btn-level">
+        <button class="close-btn" id=unsub_{{following_item}} (click)="unsub(following_item)"></button>
+      </div>
+      <div class="item-symbol-level">
+        <span class="item-symbol font_semi_midum font_Heebo font_bold">{{following_item}}</span>
+        <span class="item-price font_semi_midum font_Heebo font_bold" [ngStyle]="arrow_color(tb3[following_item].d)">{{tb3[following_item].c}}</span>
+      </div>
+      <div class="item-name-level">
+        <p class="item-name font_500 font_very_small">{{name[following_item]}}</p>
+        <div class="item-d-dp">
+          <span class="arrow" *ngIf="tb3[following_item].d>0">
+            <svg style="color: #008000" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+              <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+            </svg>
+          </span>
+          <span class="arrow" *ngIf="tb3[following_item].d<0">
+            <svg style="color: #ff0000" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+              <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+            </svg>
+          </span>
+          <span class="arrow" *ngIf="tb3[following_item].d==0">
+            <svg style="color: #000000" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+              <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+            </svg>
+          </span>
+          <span [ngStyle]="arrow_color(tb3[following_item].d)" class="font_500 font_very_small">{{tb3[following_item].d}}</span>
+          <span [ngStyle]="arrow_color(tb3[following_item].d)" class="font_500 font_very_small">({{tb3[following_item].dp}})</span>
+        </div>
+      </div>
+    </div>
+  </div>
+<!--  <div *ngFor="let "></div>-->
+</div>

@@ -1,0 +1,305 @@
+<!--<h1>{{this.tem_ticker}}</h1>-->
+<!--<button (click)="change_temticker()">change the tem_ticker</button>-->
+<ng-template #news_modal let-modal_news>
+  <div class="modal-header modal-news-header">
+    <div class="title_and_close">
+      <h3 class="modal-title font_Heebo font_600 font_midum" id="modal-basic-title-news">{{cur_news.source}}</h3>
+      <button class="btn-close" type="button"  aria-label="Close" (click)="modal_news.dismiss('Cross click')"></button>
+    </div>
+    <p class="sub_title font_Heebo font_very_small font_600">
+      {{cur_news.date}}
+    </p>
+    </div>
+  <div class="modal-body">
+    <h5 class="font_Heebo font_600 font_semi_midium">{{cur_news.headline}}</h5>
+    <p class="news_summary font_Heebo font_600 font_very_very_small">{{cur_news.summary}}<p>
+    <p style="color: #6E6E6E" class="news_moredetails font_Heebo font_500 font_very_very_small">For more details click <a href="{{cur_news.url}}" target="_blank">here</a>
+    <div class="share_news">
+      <p class="news_share_title font_Heebo font_600 font_very_very_small">Share</p>
+        <span class="btn-twitter">
+          <a href="https://twitter.com/intent/tweet?text={{cur_news.headline}}%0a{{cur_news.url}}" target="_blank">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-twitter" viewBox="0 0 16 16">
+             <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
+            </svg>
+          </a>
+        </span>
+        <span class="btn-facebook">
+          <a href="{{get_facebook_share(cur_news.url)}}" target="_blank" >
+<!--            <img class="img_facebook" />-->
+            <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                 width="40" height="40" viewBox="0 0 95.333 95.333" style="enable-background:new 0 0 95.333 95.333;"
+                 xml:space="preserve" fill="#0000ff">
+                <path d="M93.333,0H2C0.896,0,0,0.896,0,2v91.332c0,1.104,0.896,2,2,2h48.525V63.477H40.284c-0.885,0-1.602-0.717-1.602-1.602
+                  V48.961c0-0.885,0.717-1.603,1.602-1.603h10.242v-8.913c0-11.744,7.395-19.332,18.839-19.332l10.188,0.016
+                  c0.883,0.001,1.6,0.718,1.6,1.602v11.991c0,0.885-0.717,1.602-1.602,1.602l-6.863,0.003c-4.729,0-5.595,1.844-5.595,5.475v7.556
+                  h11.979c0.425,0,0.832,0.169,1.133,0.47c0.3,0.301,0.469,0.708,0.469,1.133L80.67,61.876c0,0.885-0.717,1.603-1.602,1.603H67.092
+                  v31.854h26.24c1.104,0,2-0.896,2-2V2C95.333,0.895,94.438,0,93.333,0z"/>
+            </svg>
+          </a>
+
+        </span>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template #content let-modal_buy>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title-buy">{{tb1.ticker}}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal_buy.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <p class="modal_item font_600 font_Heebo">Current Price: {{tb3.c}}</p>
+    <p class="modal_item font_600 font_Heebo">Money in Wallet: ${{(account.saving).toFixed(2)}}</p>
+    <form>
+      <div class="mb-3">
+        <div class="input-group">
+          <span class="quantity_text font_600 font_Heebo" >Quantity </span>
+          <input min="1" step="1" style="width:80px;" type="number" class="form-control modal_input" id="numberInputEx_buy" mdbInput  (input)="get_error_hint_buy($event)"
+          (keyup)="buy_check_enter($event)">
+          <!--          <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">-->
+          <!--          <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>-->
+        </div>
+      </div>
+    </form>
+    <p class="error_message font_600 font_Heebo" *ngIf="buy_error_hint">{{error_msg}}</p>
+  </div>
+  <div class="modal-footer">
+    <span class="modal_total font_600 font_Heebo">Total: {{buy_total_price}}</span>
+    <button disabled="true" type="button" id="buy_stock" class="btn btn-outline-dark modal_b_s_btn btn_success " (click)="buy_func($event);modal_buy.close('Save click');">Buy</button>
+  </div>
+</ng-template>
+
+<ng-template #content_sell let-modal_sell>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title-sell">{{tb1.ticker}}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal_sell.dismiss('Cross click');"></button>
+  </div>
+  <div class="modal-body">
+    <p class="modal_item font_600 font_Heebo">Current Price: {{tb3.c}}</p>
+    <p class="modal_item font_600 font_Heebo">Money in Wallet: ${{(account.saving).toFixed(2)}}</p>
+    <form>
+      <div class="mb-3">
+        <div class="input-group">
+          <span class="quantity_text font_600 font_Heebo" >Quantity </span>
+          <input style="width:80px;" min="1" step="1" type="number" class="form-control modal_input" id="numberInputEx_sell" mdbInput  (input)="get_error_hint_sell($event)"
+                 (keyup)="sell_check_enter($event)">
+          <!--          <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">-->
+          <!--          <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>-->
+        </div>
+      </div>
+    </form>
+    <p class="error_message font_600 font_Heebo" *ngIf="sell_error_hint">{{error_msg}}</p>
+  </div>
+  <div class="modal-footer">
+    <span class="modal_total font_600 font_Heebo">Total: {{sell_total_price}}</span>
+    <button disabled="true" type="button" disabled="true" id="sell_stock" class="btn btn-outline-dark btn_danger" (click)="sell_func($event);modal_sell.close('Save click');">Sell</button>
+  </div>
+</ng-template>
+
+
+<p class="no_data_found" *ngIf="(!true_name)&&(!valid_ticker)">
+  No data found, Please enter a valid Ticker
+</p>
+<div class="ticker_spinner_div" *ngIf="show_spinner">
+  <mat-spinner class="auto_spinner"  [diameter]="60">
+  </mat-spinner>
+</div>
+<p class="alert_msg_p"  *ngFor="let alert of alerts">
+  <ngb-alert *ngIf="true_name"  class="alert_msg font_midum font_400" [type]="alert.type" (closed)="close(alert)">{{ alert.message }}</ngb-alert>
+</p>
+<div class="ticker_detail l1_son" *ngIf="true_name">
+  <div class="ticker_detail_son">
+    <div class="ticker_introduction">
+      <div class="symbol_and_star">
+        <p class="company_symbol font_Heebo font_large font_600">{{tb1.ticker}}</p>
+<!--        <span class="subscribe"></span>-->
+
+        <div class="subscribe_div" style="cursor:pointer;" (click)="sub_unsub()" id="subscribe" >
+          <svg *ngIf="ticker_in_following==false" xmlns="http://www.w3.org/2000/svg"  fill="currentColor" class="bi bi-star subscribe_star" viewBox="0 0 16 16">
+            <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+          </svg>
+          <svg *ngIf="ticker_in_following==true" xmlns="http://www.w3.org/2000/svg" color='#FFD203'  fill="currentColor" class="bi bi-star-fill subscribe_star" viewBox="0 0 16 16">
+                 <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+          </svg>
+        </div>
+
+
+
+      </div>
+      <p lang="en" class="company_fullname font_midum font_Heebo font_500">{{tb1.name}}</p>
+      <p class="company_exchangecode summary_lefttop_value font_very_small font_Heebo font_400">{{tb1.exchange}}</p>
+    </div>
+    <div class="ticker_logo"><img class="img-logo" src={{tb1.logo}} /></div>
+<!--    <img class="img-logo" src={{tb1.logo}} />-->
+    <div class="ticker_price">
+      <p class="last_price font_Heebo font_large font_600" [ngStyle]="arrow_color()" >{{tb3.c}}</p>
+      <p class="price_change font_600 font_midum" >
+        <span class="arrow price_change_item" *ngIf="tb3.d>0">
+          <svg style="color: #008000" xmlns="http://www.w3.org/2000/svg"  fill="currentColor" class="bi bi-caret-up-fill arrow_sub" viewBox="0 0 16 16">
+            <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
+          </svg>
+        </span>
+        <span class="arrow price_change_item" *ngIf="tb3.d<0">
+          <svg style="color: #ff0000" xmlns="http://www.w3.org/2000/svg"  fill="currentColor" class="bi bi-caret-down-fill arrow_sub" viewBox="0 0 16 16">
+            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+          </svg>
+        </span>
+<!--        <span class="arrow" *ngIf="tb3.d==0">-->
+<!--          <svg style="color: #000000" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-caret-down-fill arrow_sub" viewBox="0 0 16 16">-->
+<!--            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>-->
+<!--          </svg>-->
+<!--        </span>-->
+        <span class="change font_midum font_Heebo font_500 price_change_item" [ngStyle]="arrow_color()">{{tb3.d}}</span>
+        <span class="change_percentage font_midum font_Heebo font_500 price_change_item" [ngStyle]="arrow_color()"> ({{(tb3.dp).toFixed(2)}}%)</span>
+      </p>
+      <p class="current_time summary_lefttop_value font_very_small font_Heebo font_400" *ngIf="Market_state">{{tb3.t1}}</p>
+      <p class="current_time summary_lefttop_value font_very_small font_Heebo font_400" *ngIf="Market_state==false">{{now_time_string}}</p>
+    </div>
+  </div>
+  <div class="button_b_s">
+    <button style="background-color: #28A745" class="btn btn-success btn_bs" id="btn_b" (click)="open(content)">Buy</button>
+    <button style="background-color: #DC3545" class="btn btn-danger btn_bs" id="btn_s" *ngIf="account.own_stock.hasOwnProperty(cur_ticker)" (click)="open(content_sell)">Sell</button>
+  </div>
+</div>
+<p class="ticker_market_status l1_son font_small font_600" style="color:#28A745;" *ngIf="true_name&&Market_state" >Market is Open</p>
+<p class="ticker_market_status l1_son font_small font_600 " style="color:#DC3545;" *ngIf="true_name&&(Market_state==false)"> Market Closed on {{tb3.t1}}</p>
+
+<div class="ticker_tabs l1_son" *ngIf="true_name">
+<!--  tab栏位-->
+  <mat-tab-group mat-stretch-tabs (selectedTabChange)="click_on_Charts($event)">
+    <mat-tab class="Summary"label="Summary">
+      <ng-template matTabContent>
+        <div class="display_Summary">
+          <div class="summary_left">
+            <div class="summary_lefttop">
+              <p class="high_price summary_lefttop_items"><span class="summary_title">High Price: </span><span class="summary_lefttop_value">{{tb3.h}}</span></p>
+              <p class="low_price summary_lefttop_items"><span class="summary_title">Low Price: </span><span class="summary_lefttop_value">{{tb3.l}}</span></p>
+              <p class="open_price summary_lefttop_items"><span class="summary_title">Open Price: </span><span class="summary_lefttop_value">{{tb3.o}}</span></p>
+              <p class="prev_close summary_lefttop_items"><span class="summary_title">Prev. Close: </span><span class="summary_lefttop_value">{{tb3.pc}}</span></p>
+            </div>
+            <div class="summary_leftbot">
+              <h4 class="summary_leftbot_head">About the Company</h4>
+              <p class="IPO_Start_Date"><span class="summary_title">IPO Start Date: </span><span class="summary_lefttop_value">{{tb1.ipo}}</span></p>
+              <p class="Industry"><span class="summary_title">Industry: </span><span class="summary_lefttop_value">{{tb1.finnhubIndustry}}</span></p>
+              <p class="Webpage"><span class="summary_title">Webpage:</span><a class="webpage" href="{{tb1.weburl}}" target="_blank">{{tb1.weburl}}</a></p>
+              <p class="Company_peers">
+                <span class="summary_title">Company peers: </span>
+                <br>
+<!--                <a *ngFor="let peer_company of tb8" href="/search/{{peer_company}}">{{peer_company}}, </a>-->
+                <a class="peer_company" *ngFor="let peer_company of tb8" (click)="turnToPeer(peer_company)">{{peer_company}}, </a>
+              </p>
+            </div>
+          </div>
+          <div class="summary_right">
+            <highcharts-chart
+              id="summry_chart"
+              [Highcharts]="Highcharts"
+              [options]="chartOptions"
+              [(update)]="updateFlag"
+              [callbackFunction]="chartCallback1"
+
+              style="width: 100%; height: 400px; display: block;"
+            ></highcharts-chart>
+          </div>
+        </div>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="Top News">
+      <ng-template matTabContent>
+        <div class="display_Top_News">
+          <div class="news_item" *ngFor="let news of tb5" (click)="cur_news=news;open(news_modal);" >
+            <img class="news_item_pic" src={{news.image}} />
+            <p class="news_item_title font_Heebo font_500">
+              {{news.headline}}
+            </p>
+          </div>
+        </div>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="Charts" >
+      <ng-template matTabContent>
+        <div class="display_Charts">
+          <highcharts-chart
+            style="display: block"
+            id="charts_chart"
+            [options]="stockOptions"
+            [Highcharts]="Highcharts_1"
+            [constructorType]="'stockChart'"
+            [(update)]="stockUpdateFlag"
+            [callbackFunction]="chartCallback2"
+            (window:resize)="onResize($event)"
+
+          >
+
+          </highcharts-chart>
+        </div>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="Insights">
+    <div class="display_Insights">
+      <ng-template matTabContent>
+      <div class="display_Insight_top">
+          <table mat-table [dataSource]="socal_sentiments" class="mat-elevation-z8 sentiment_table" >
+            <!-- summaryName Column -->
+            <ng-container matColumnDef="summaryName">
+              <th mat-header-cell *matHeaderCellDef> {{tb1.name}} </th>
+              <td mat-cell *matCellDef="let element"> {{element.summaryName}} </td>
+            </ng-container>
+
+            <!-- Reddit Column -->
+            <ng-container matColumnDef="Reddit">
+              <th mat-header-cell *matHeaderCellDef> Reddit </th>
+              <td mat-cell *matCellDef="let element"> {{element.Reddit}} </td>
+            </ng-container>
+
+            <!-- Twitter Column -->
+            <ng-container matColumnDef="Twitter">
+              <th mat-header-cell *matHeaderCellDef> Twitter </th>
+              <td mat-cell *matCellDef="let element"> {{element.Twitter}} </td>
+            </ng-container>
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </div>
+        <div class="display_Insight_bot">
+          <div class="Recommendation_Trends" style="overflow: hidden">
+<!--            <highcharts-chart-->
+<!--              id="Recommendation_chart"-->
+<!--              [options]="recommendationOptions"-->
+<!--              [Highcharts]="Highcharts_2"-->
+<!--              [constructorType]="'chart'"-->
+<!--              [(update)]="recommendationUpdateFlag"-->
+<!--            ></highcharts-chart>-->
+              <highcharts-chart
+                [Highcharts]="Highcharts"
+                [options]="recommendationOptions"
+                [(update)]="recommendationUpdateFlag"
+                [oneToOne]="true"
+                [callbackFunction]="chartCallback3"
+                style="width: 100%; height: 100%; display: block;"
+              ></highcharts-chart>
+          </div>
+          <div class="Historical_EPS">
+            <highcharts-chart
+              [Highcharts]="Highcharts"
+              [options]="epsOptions"
+              [(update)]="epsUpdateFlag"
+              [oneToOne]="true"
+              [callbackFunction]="chartCallback4"
+              style="width: 100%; height: 100%; display: block;"
+            ></highcharts-chart>
+          </div>
+
+        </div>
+      </ng-template>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+
+</div>
+
+
+

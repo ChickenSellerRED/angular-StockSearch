@@ -1,0 +1,51 @@
+
+<h1  class="p1_head">STOCK SEARCH</h1>
+<form class="p1_form" onsubmit="return false;">
+  <div class="search_div_0">
+    <div class="input-group-append search_div_1">
+
+      <input  type="text"
+              class="form-control stock_ticker_input"
+              (keyup)="do_auto_complete($event)"
+              placeholder="Enter"
+              id="input_seach"
+              [formControl]="myControl"
+              [matAutocomplete]="auto"
+      >
+      <mat-autocomplete #auto="matAutocomplete">
+
+        <mat-option *ngIf="auto_compelete_spinner">
+          <mat-spinner class="auto_spinner"  [diameter]="30">
+
+          </mat-spinner>
+<!--          <span class="auto_spinner">-->
+<!--            <div class="spinner-border" style="color: #3D2794;" role="status" >-->
+<!--              <span class="visually-hidden" style="height: 100%" currentColor>Loading...</span>-->
+<!--            </div>-->
+<!--          </span>-->
+        </mat-option>
+        <mat-option *ngFor="let option of this.auto_options" [value]="option.p1">
+          <span class="auto_complete_ticker">{{option.p1}}</span>
+          <span class="auto_complete_fullname"> | {{option.p2}}</span>
+        </mat-option>
+      </mat-autocomplete>
+
+
+      <button class=" p1_form_btn btn_search " type="button" ng-controller="" (click)="get_result()" >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search btn-bg-color" viewBox="0 0 16 16">
+          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+        </svg>
+      </button>
+    </div>
+    <button class="  p1_form_btn btn_clear" type="button" (click)="clear_result()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg btn-bg-color" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z"/>
+        <path fill-rule="evenodd" d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z"/>
+      </svg>
+    </button>
+  </div>
+</form>
+<p class="alert_msg_p" *ngFor="let alert of alerts">
+  <ngb-alert class="alert_msg" [type]="alert.type" (closed)="close(alert)">{{ alert.message }}</ngb-alert>
+</p>
+<app-ticker *ngIf="ticker" [cur_ticker]=ticker [valid_ticker]=valid_ticker class="suit_father"></app-ticker>

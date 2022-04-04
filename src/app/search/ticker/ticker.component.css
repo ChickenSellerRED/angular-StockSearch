@@ -1,0 +1,748 @@
+:root{
+  font-size:10px;
+}
+
+:host{
+  max-height: 2000px!important;
+  height: auto!important;
+  width: 84vw;
+}
+:host ::after{
+  clear: both!important;
+}
+.l1_son{
+  width: 100%;
+}
+.ticker_spinner_div{
+  height: 70px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+}
+.auto_spinner::ng-deep circle{
+  stroke: #3D2794!important;
+}
+.peer_company{
+  cursor:pointer;
+}
+
+.ticker_detail{
+  width: 100%;
+  margin-top:20px ;
+  height:220px;
+  display:flex;
+  flex-direction: column;
+}
+.ticker_detail_son{
+  height: 67%;
+  width: 100%;
+  display: flex;
+  /*justify-content: space-between;*/
+}
+.arrow_sub{
+  height: 25px;
+  width: 25px;
+}
+.ticker_introduction{
+  height: 100%;
+  width: calc((100% - 90px)/2);
+}
+.symbol_and_star{
+  width: 100%;
+  height: 43%;
+  vertical-align:top;
+  display: flex;
+}
+.company_symbol{
+  margin-right: 5px;
+  /*line-height: 50px;*/
+}
+.subscribe_star{
+  height: 30px;
+  width: 30px;
+}
+.subscribe_div{
+  height: 40px;
+  width: 40px;
+  position: relative;
+  top: 0;
+  display: flex;
+  justify-content: flex-start;
+}
+.company_fullname{
+  width: 100%;
+  height: 34%;
+  margin: 0;
+  color: #626262;
+  overflow-wrap: break-word;
+  word-break:break-all;
+}
+.company_exchangecode{
+  width: 140%;
+  height:30%;
+  margin: 0;
+  overflow-wrap: break-word;
+  word-break:break-all;
+}
+
+#subscribe{
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.ticker_logo{
+  height: 80px;
+  width: 80px;
+  z-index:-998;
+  max-width: 80px;
+  max-height: 80px;
+  /*margin-right: 23px;*/
+  /*margin-left: 23px;*/
+  position: relative;
+}
+.img-logo{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width:100%;/*相当父元素的100%是100px*/
+  height:100%;/*相当父元素的100%是100px*/
+  max-width: 100%;
+  max-height: 100%;
+}
+.ticker_price{
+  height:100%;
+  width: calc((100% - 90px)/2);
+}
+
+.button_b_s{
+  height: 33%;
+  width: 100%;
+}
+.last_price{
+  text-align: right;
+  margin: 0;
+  height: 43%;
+}
+.price_change{
+  text-align: right;
+  margin: 0;
+  height: 34%;
+  display: flex;
+  justify-content: flex-end;
+  /*align-items: center;*/
+}
+.price_change_item{
+  display: inline-block;
+}
+.current_time{
+  text-align: right;
+  margin: 0;
+  height: 23%;
+}
+.ticker_market_status{
+  width: 100%;
+  height: 47px;
+  text-align: center;
+}
+
+.no_data_found{
+  margin-top: 20px;
+  height: 60px;
+  width: 954px;
+  line-height: 60px;
+  background:#F8D7DA;
+  text-align: center;
+}
+
+.ticker_tabs{
+  width: 100%;
+}
+.ticker_tabs::after{
+  /*height: 405px;*/
+
+  clear:both;
+
+}
+.btn_bs{
+  /*box-shadow: none !important;*/
+  margin-right: 10px;
+}
+.display_Summary{
+  display: flex;
+  width: 100%;
+}
+.summary_left{
+  /*width: 50%;*/
+  /*flex: 1;*/
+  width: 50%;
+  margin:0;
+}
+.summary_right{
+  /*width: 50%;*/
+  /*flex: 1;*/
+  width: 50%;
+  margin:0;
+}
+#summry_chart{
+  width: 100%;
+  height: 100%;
+}
+#charts_chart{
+  width: 100%!important;
+  height: 100%!important;
+  display: block;
+}
+.summary_leftbot_head{
+  text-align: center;
+  text-decoration:underline;
+  width: 100%;
+}
+mat-tab{
+  width: 25%!important;
+}
+a{
+  text-decoration:none;
+}
+mat-tab-group{
+  width: 100%;
+}
+.display_Top_News{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.display_Charts{
+  /*width: 954px;*/
+  width: 100%;
+  height: 700px;
+  display: block;
+}
+.news_item{
+  margin: 10px;
+  height: 104px;
+  width: 47%;
+  display: flex;
+  background: #FFFFFF;
+  cursor: pointer;
+  border-radius: 2px;
+  box-shadow: 0px 0px 5px #E5E5E5;
+}
+.webpage{
+  display: inline-block;
+}
+.news_item_pic{
+  margin: 18px;
+  width: 100px;
+  height: 65px;
+  max-width: 100px;
+  max-height: 65px;
+}
+.news_item_title{
+  margin-top: 20px;
+  width: 281px;
+  height: 64px;
+}
+.sentiment_table{
+  width: 100%;
+  height: 234px;
+  box-shadow: none!important;
+  background: none;
+  /*height: 100%;*/
+  /*width: 100%;*/
+  /*display: block;*/
+}
+.display_Insights{
+  width: 100%;
+  height: 602px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+ }
+.display_Insight_top{
+  height: 234px;
+  width: 50%;
+  margin: 0 25%;
+}
+.display_Insight_bot{
+  height: 368px;
+  width: 100%;
+  display: flex;
+  margin: 0;
+ }
+.Recommendation_Trends{
+  width: 50%;
+  height: 100%;
+}
+.Historical_EPS{
+  width: 50%;
+  height: 100%;
+}
+.quantity_text{
+  line-height: 38px;
+  margin-right: 10px;
+}
+.modal_item{
+  margin: 0px;
+}
+.modal-news-header{
+  display: flex;
+  flex-direction: column!important;
+}
+.title_and_close{
+  display: flex;
+  width: 100%;
+}
+.sub_title{
+  width: 100%;
+  text-align: left;
+  margin-bottom: 0;
+  color: #6E6E6E;
+}
+.btn-close{
+  float: right;
+}
+.btn-twitter{
+  /*color: #1E90FF;*/
+  cursor: pointer;
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-bottom: 30px;
+}
+#Capa_1{
+  color: #0000ff;
+}
+.btn-facebook{
+  max-height: 40px;
+  max-width: 40px;
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+  margin: 0;
+
+}
+.img_facebook{
+  max-height: 40px;
+  max-width: 40px;
+  height: 40px;
+  width: 40px;
+  background-size: cover;
+  border: none;
+}
+.share_news{
+  margin: 0;
+  width: 90%;
+  height: 100px;
+  /*box-shadow: 0px 0px 5px #E5E5E5;*/
+  border-radius: 5px;
+  border: 1px solid #E5E5E5;
+}
+.font_Heebo{
+  font-family: Heebo;
+}
+.font_600{
+   font-weight: 600;
+}
+.font_large{
+  font-size: 50px;
+}
+.font_midum{
+  font-size: 30px;
+}
+.font_semi_midum{
+  font-size: 25px;
+}
+.font_small{
+  font-size: 20px;
+}
+.font_very_small{
+  font-size: 15px;
+}
+.font_very_very_small{
+  font-size: 13px;
+}
+.font_bold{
+  font-weight: bold;
+}
+.font_500{
+  font-weight: 500;
+}
+.font_400{
+  font-weight: 400;
+}
+
+
+.summary_title{
+  font-family: Heebo;
+  font-weight: bold;
+}
+.summary_lefttop_value{
+  font-family: Roboto;
+  font-weight: 400;
+}
+.summary_lefttop{
+  padding: 25px;
+  padding-left: 60px;
+  height: 37%;
+}
+.summary_lefttop_items{
+  margin: 0;
+}
+.summary_leftbot{
+  height: 63%;
+}
+.alert_msg_p{
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+.alert_msg{
+  width: 100%;
+  text-align: center;
+  margin: 0;
+}
+/*.modal_total{*/
+/*  float: left;*/
+/*}*/
+/*.modal_b_s_btn{*/
+/*  float: right;*/
+/*}*/
+.modal-footer{
+  justify-content: space-between!important;
+}
+.btn_success{
+  background-color: #28A745;
+  font-weight: 400;
+  color: #FFFFFF;
+  border-color: #198754;
+}
+.btn_danger{
+  background-color: #DC3545;
+  font-weight: 400;
+  color: #FFFFFF;
+  border-color: #dc3545;
+}
+.input-group{
+  /*align-items: flex-start!important;*/
+  display: block;
+}
+.modal_input{
+  display: inline-block;
+}
+.error_message{
+  color: #ff0000;
+}
+.news_summary{
+margin: 0;
+}
+.news_moredetails{
+  margin-bottom: 25px;
+}
+.news_share_title{
+  margin-left: 10px;
+  margin-top: 20px;
+}
+
+
+
+@media (max-width: 400px) {
+  .display_Top_News{
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-direction: column;
+  }
+  .news_item {
+    margin-top: 15px;
+    margin-left: 0;
+    margin-right: 0;
+    height:28vh;
+    width: 91%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    background: #FFFFFF;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px #E5E5E5;
+  }
+  .news_item_pic{
+    margin: 0 5%;
+    margin-top: 5%;
+    width: 90%;
+    height: 68%;
+    max-width: 90%;
+    max-height: 68%;
+  }
+  .current_time{
+    text-align: right;
+    margin: 0;
+    height: 23%;
+    margin-top: 5%;
+  }
+  .news_item_title{
+    width: 90%;
+    height: 27%;
+  }
+  #subscribe{
+    display: block;
+  }
+
+  .font_large{
+    font-size: 1.4rem;
+  }
+  .font_midum{
+    font-size: 0.84rem!important;
+  }
+  .font_semi_midum{
+    font-size: 0.7rem;
+  }
+  .font_small{
+    font-size: 0.56rem;
+  }
+  .font_very_small{
+    font-size: 0.42rem;
+  }
+  .font_very_very_small{
+    font-size: 0.36rem;
+  }
+  .ticker_detail{
+    width: 100%;
+    margin-top:20px ;
+    height:220px!important;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .ticker_detail_son{
+     height: 70%;
+     width: 100%;
+     display: flex;
+   }
+
+
+  .symbol_and_star{
+    width: 100%;
+    height: 38%;
+    vertical-align:top;
+    display: flex;
+  }
+  .company_fullname{
+    width: 100%;
+    height: 34%;
+    margin: 0;
+    color: #626262;
+    overflow-wrap: break-word;
+    word-break:break-all;
+    /*line-height:40px ;*/
+  }
+  .company_exchangecode{
+    width: 160%;
+    height:30%;
+    margin: 5% 0;
+    overflow-wrap: break-word;
+    word-break:break-all;
+  }
+  .last_price{
+     text-align: right;
+     margin: 0;
+     height: 38%;
+    /*line-height: 46px;*/
+   }
+  .display_Summary{
+    flex-direction: column;
+  }
+  .summary_left{
+     width: 100%;
+     margin:0;
+   }
+  .summary_right{
+    /*width: 50%;*/
+    /*flex: 1;*/
+    width: 100%;
+    margin:0;
+  }
+  .subscribe_star{
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+  }
+  .arrow_sub{
+    width: 12px;
+    height: 12px;
+  }
+  .button_b_s{
+    height: 33%;
+    width: 100%;
+    margin-top: 6%;
+  }
+  .display_Insights{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .display_Insight_top{
+    height: 234px;
+    width: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+  }
+  .display_Insight_bot{
+    /*height: 368px;*/
+    height: 736px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+  }
+  .Recommendation_Trends{
+    width: 100%;
+    height: 50%;
+  }
+  .Historical_EPS{
+     width: 100%;
+     height: 50%;
+   }
+  .ticker_market_status{
+    margin-top: 10px;
+    width: 100%;
+    height: 30px;
+    text-align: center;
+  }
+
+  .ticker_introduction{
+    height: 100%;
+    width: 33%;
+  }
+  .ticker_logo{
+    width: 35px;
+    height: 35px;
+    margin-left: 5%;
+    margin-right: 5%;
+    position: relative;
+  }
+  .img-logo{
+    /*display: block;*/
+    /*height: 35%;*/
+    /*width: 13vw;*/
+    /*max-height: 100%;*/
+    /*max-width: 13vw;*/
+    position: absolute;
+    left: 0;
+    top: 0;
+    width:100%;/*相当父元素的100%是100px*/
+    height:100%;/*相当父元素的100%是100px*/
+    max-width: 100%;
+    max-height: 100%;
+  }
+  .ticker_price{
+    height:100%;
+    width: 33%;
+  }
+  .price_change{
+  }
+}
+@media (min-width: 400px) and (max-width: 1080px){
+  .font_midum{
+    font-size: 22px;
+  }
+
+  .button_b_s{
+    height: 33%;
+    width: 100%;
+    margin-top: 6%;
+  }
+  .display_Top_News{
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-direction: column;
+  }
+  .news_item {
+    margin-top: 15px;
+    margin-left: 0;
+    margin-right: 0;
+    height:28vh;
+    width: 91%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    background: #FFFFFF;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px #E5E5E5;
+  }
+  .news_item_pic{
+    margin: 0 5%;
+    margin-top: 5%;
+    width: 90%;
+    height: 68%;
+    max-width: 90%;
+    max-height: 68%;
+  }
+  .news_item_title{
+    width: 90%;
+    height: 27%;
+  }
+  .display_Summary{
+    flex-direction: column;
+  }
+  .summary_left{
+    width: 100%;
+    margin:0;
+  }
+  .summary_right{
+    /*width: 50%;*/
+    /*flex: 1;*/
+    width: 100%;
+    margin:0;
+  }
+  .subscribe_star{
+    height: 18px;
+    width: 18px;
+  }
+
+  .display_Insights{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .display_Insight_top{
+    height: 234px;
+    width: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+  }
+  .display_Insight_bot{
+    /*height: 368px;*/
+    height: 736px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+  }
+  .Recommendation_Trends{
+    width: 100%;
+    height: 50%;
+  }
+  .Historical_EPS{
+    width: 100%;
+    height: 50%;
+  }
+  .company_exchangecode{
+    width: 140%;
+    height:30%;
+    margin: 5% 0;
+    overflow-wrap: break-word;
+    word-break:break-all;
+  }
+}

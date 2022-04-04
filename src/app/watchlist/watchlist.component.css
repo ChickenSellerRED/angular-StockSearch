@@ -1,0 +1,163 @@
+:host{
+  width: 100%;
+  height: auto!important;
+}
+.watchlist_displayarea{
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.watchlist_header{
+  width: 55%;
+  text-align: left;
+  height: 30px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.following_list{
+  width: 55%;
+  text-align: center;
+}
+.following_list_item{
+  width: 100%;
+  height: 100px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  background: #FFFFFF;
+  border: #6E6E6E solid 1px;
+}
+.item-btn-level{
+  height: 23%;
+  width: 100%;
+}
+.item-symbol-level{
+  text-align: justify;
+  height: 39%;
+  display: flex;
+  justify-content: space-between;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+.item-name-level{
+  display: flex;
+  justify-content: space-between;
+  margin-left: 15px;
+  margin-right: 15px;
+  /*margin-left: 35%;*/
+  /*margin-right: 30px;*/
+}
+.item-symbol{
+  float: left;
+}
+.item-price{
+  float: right;
+}
+.item-name{
+  margin: 0;
+}
+.item-d-dp{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.close-btn{
+  float: right;
+  background-origin: content-box;
+  background: transparent content-box;
+  padding: 3px;
+  -webkit-background-size: 15px 15px;
+  background-size: 15px 15px;
+  height: 100%;
+  width: 21px;
+  right: 0;
+  background-image: url("../times-solid-grey.svg");
+  margin: 0;
+  border: 0;
+  cursor: pointer;
+  border-radius: 0px;
+  /*border-left: 3px solid #F2F2F2;*/
+}
+.close-btn:hover{
+  background-image: url("../times-solid.svg");
+}
+.no-following-warning{
+  padding: 0;
+  height: 35px;
+  line-height: 35px;
+}
+.font_Heebo{
+  font-family: Heebo;
+}
+.font_600{
+  font-weight: 600;
+}
+.font_large{
+  font-size: 50px;
+}
+.font_midum{
+  font-size: 30px;
+}
+.font_semi_midum{
+  font-size: 25px;
+}
+.font_small{
+  font-size: 20px;
+}
+.font_very_small{
+  font-size: 15px;
+}
+.font_very_very_small{
+  font-size: 13px;
+}
+.font_bold{
+  font-weight: bold;
+}
+.font_500{
+  font-weight: 500;
+}
+.item_property{
+
+}
+
+@media (max-width: 600px) {
+  .font_large {
+    font-size: 2rem;
+  }
+
+  .font_midum {
+    font-size: 2rem;
+  }
+
+  .font_semi_midum {
+    font-size: 1.4rem;
+  }
+
+  .font_small {
+    font-size: 1.1rem;
+  }
+
+  .font_very_small {
+    font-size: 0.42rem;
+  }
+
+  .font_very_very_small {
+    font-size: 0.36rem;
+  }
+
+  .watchlist_header{
+    width: 90%;
+    text-align: left;
+    height: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  .following_list{
+    width: 90%;
+    text-align: center;
+  }
+}
