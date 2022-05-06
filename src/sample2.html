@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="https://code.highcharts.com/stock/highstock.js"></script>
+  <script src="https://code.highcharts.com/stock/modules/data.js"></script>
+  <script src="https://code.highcharts.com/stock/modules/drag-panes.js"></script>
+  <script src="https://code.highcharts.com/stock/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/stock/indicators/indicators.js"></script>
+  <script src="https://code.highcharts.com/stock/indicators/volume-by-price.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <style>
+    #container {
+      height: 500px;
+      min-width: 310px;
+    }
+
+  </style>
+</head>
+<body>
+<div id="container"></div>
+<script type="text/javascript">
+  function getticker() {
+    // s = Android.getTicker();
+    s = "HPQ"
+    return s;
+  }
+
+  stockOptions = {
+
+    rangeSelector: {
+      enabled: true,
+      inputEnabled: true,
+      buttons:[{
+        type: 'month',
+        count: 1,
+        text: '1m',
+      },{
+        type: 'month',
+        count: 3,
+        text: '3m'
+      },{
+        type: 'month',
+        count: 6,
+        text: '6m'
+      },{
+        type: 'ytd',
+        text: 'YTD'
+      }, {
+        type: 'year',
+        count: 1,
+        text: '1y'
+      }, {
+        type: 'all',
+        text: 'All'
+      }],
+      selected: 5,
+    },
+
+    title: {
+      text: ''
+    },
+
+    subtitle: {
+      text: 'With SMA and Volume by Price technical indicators'
+    },
+
+    yAxis: [{
+      startOnTick: false,
+      endOnTick: false,
+      labels: {
+        align: 'right',
+        x: -3
+      },
+      title: {
+        text: 'OHLC'
+      },
+      height: '60%',
+      lineWidth: 2,
+      resize: {
+        enabled: true
+      }
+    }, {
+      labels: {
+        align: 'right',
+        x: -3
+      },
+      title: {
+        text: 'Volume'
+      },
+      top: '65%',
+      height: '35%',
+      offset: 0,
+      lineWidth: 2
+    }],
+    //
+    // tooltip: {
+    //   split: true
+    // },
+
+    // plotOptions: {
+    //   series: {
+    //     dataGrouping: {
+    //       units: this.groupingUnits
+    //     }
+    //   }
+    // },
+
+    series: [{
+      type: 'candlestick',
+      name: '',
+      id: 'candle',
+      zIndex: 2,
+      data: this.ohlc
+    }, {
+      type: 'column',
+      name: 'Volume',
+      id: 'volume',
+      data: this.volume,
+      yAxis: 1
+    }, {
+      type: "vbp",
+      linkedTo: 'candle',
+      params: {
+        volumeSeriesID: 'volume'
+      },
+      dataLabels: {
+        enabled: false
+      },
+      zoneLines: {
+        enabled: false
+      }
+    }, {
+      type: 'sma',
+      linkedTo: 'candle',
+      zIndex: 1,
+      marker: {
+        enabled: false
+      }
+    }]
+  }
+
+  var date = new Date();
+  ticker = getticker();
+  now_time = date.getTime();
+  const server_prefix = "http://127.0.0.1:3080"
+
+  t_end = Math.round(now_time/1000);
+  t_start = t_end - 2*365*24*60*60;
+
+  ohlc = [];
+  volume = [];
+  $.getJSON(server_prefix+ "/get_4p2",{'ticker':ticker,'from':t_start,'to':t_end,'resolution':'D'},(result)=>{
+    // 获取2年四维数据
+    console.log(t_start,t_end);
+    console.log('chart',result)
+    for(var i=0;i<result.c.length;i++){
+      ohlc.push([result['t'][i]*1000,
+        result['o'][i],
+        result['h'][i],
+        result['l'][i],
+        result['c'][i],
+      ]);
+      volume.push([result['t'][i]*1000,
+        result['v'][i]
+      ]);
+    }
+    (Object)(stockOptions).title.text = ticker + ' Historical';
+    (Object)(stockOptions).series[0].name = ticker;
+    (Object)(stockOptions).series[0].data = ohlc;
+    (Object)(stockOptions).series[1].data = volume;
+
+
+    Highcharts.stockChart('container', stockOptions);
+    // chart.reflow();
+  })
+
+    // console.log('kaishi',t_start)
+    // console.log ('jieshu',t_end)
+    // console.log('ok')
+    // get_2year_data(t_start,t_end,ticker,'D');
+    // console.log('ok2')
+
+
+</script>
+</body>
